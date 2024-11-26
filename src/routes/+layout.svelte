@@ -19,7 +19,7 @@
                         CO2
                     </button>    
                     <button>
-                        <img src="/profile.png" alt="Profile" class="h-8 sm:h-8 md:h-10 lg:h-12 w-auto max-h-12 max-w-12 rounded-full object-cover"/>
+                        <img src="/profile.png" alt="Profile" class="h-8 sm:h-8 md:h-10 lg:h-12 w-auto max-h-12 max-w-12 object-cover"/>
                     </button>
                 </section>
             </nav>
