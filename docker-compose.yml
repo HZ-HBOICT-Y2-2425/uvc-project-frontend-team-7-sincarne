@@ -1,0 +1,9 @@
+#to be expanded
+version: '3'
+services:
+  svelte:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
