@@ -36,3 +36,11 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+
+## Docker for testing
+
+Use these commands if you want to test the webapp with docker,
+docker compose might work or might not, this definitely works
+
+docker build -t sin-carne .
+docker run -it -p 5173:5173 sin-carne 
