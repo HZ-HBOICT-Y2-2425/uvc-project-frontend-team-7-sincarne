@@ -1,0 +1,10 @@
+# TODO
+# you can try to run it with this but idk if it'll work
+version: '3'
+services:
+  svelte:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
