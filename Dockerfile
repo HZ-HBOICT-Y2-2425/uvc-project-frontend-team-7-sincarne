@@ -5,8 +5,8 @@ WORKDIR '/app'
 COPY package.json .
 RUN npm install
 
-ENV PORT 3000
-EXPOSE 3000
+ENV PORT 5173
+EXPOSE 5173
 
 COPY . .
 
