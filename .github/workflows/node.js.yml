@@ -31,6 +31,9 @@ jobs:
     # prevent push of failed tests 
     - run: npm test
 
+    - name: Run ESLint
+      run: npx eslint . || true  # This ensures the workflow doesn't fail, even if there are ESLint errors
+
   deploy:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     needs: build  # Only run after build job succeeds
