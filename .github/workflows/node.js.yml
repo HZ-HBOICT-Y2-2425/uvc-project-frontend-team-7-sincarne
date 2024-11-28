@@ -32,6 +32,7 @@ jobs:
     - run: npm test
 
   deploy:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     needs: build  # Only run after build job succeeds
     runs-on: ubuntu-22.04
 
