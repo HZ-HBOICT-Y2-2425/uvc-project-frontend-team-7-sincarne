@@ -5,7 +5,7 @@
 
 <section class="bg-cover bg-center bg-fixed min-h-screen flex flex-col" style="background-image: url('/SinCarneBg.png')">
     <header>
-        <!-- svelte-ignore a11y_consider_explicit_label -->
+        
         <section class="bg-black bg-opacity-50 text-slate-100 top-0 w-full">
             <nav class="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 flex items-center justify-between h-16">
                 <section>

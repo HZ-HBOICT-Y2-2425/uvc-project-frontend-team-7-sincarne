@@ -52,7 +52,7 @@
         border-slate-100  p-4 sm:px-12 md:px-16 lg:px-32
         text-md sm:text-lg md:text-xl lg:text-2xl 
         border-2 sm:border-2 lg:border-4 rounded-sm transition-all" 
-        on:click={changePage("/recipes")}     >
+        on:click={changePage("/recipes")}>
             DEMO TEST
         
     </button>

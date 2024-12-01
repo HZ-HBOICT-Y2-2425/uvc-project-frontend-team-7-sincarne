@@ -7,9 +7,7 @@
         class="border-4 border-slate-100 bg-center bg-no-repeat pb-8 rounded-sm shadow-lg text-slate-100 max-w-md w-full h-auto"
         style="
             background-image: url('/SinCarneLoginBg.png');
-            background-size: contain;
-        "
-    >
+            background-size: contain;" >
         <h1 class="bg-black bg-opacity-70 py-6 text-2xl sm:text-3xl md:text-3xl font-bold text-center mb-6">
             SIGN UP 
         </h1>
