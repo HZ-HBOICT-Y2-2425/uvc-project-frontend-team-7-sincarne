@@ -45,7 +45,7 @@
 
         <p class="text-center text-sm text-slate-300 mt-16">
             Don't have an account yet? 
-            <a href="/" class="text-sky-400 hover:underline">Sign up</a>
+            <a href="/registration" class="text-sky-400 hover:underline">Sign up</a>
         </p>
     </div>
 </section>

@@ -28,7 +28,7 @@
         </section>
     </header>
 
-    <main class="mt-2 flex-grow">
+    <main class="mt-2 flex-grow relative">
         {@render children()}
     </main>
 
