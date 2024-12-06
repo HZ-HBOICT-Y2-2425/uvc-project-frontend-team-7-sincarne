@@ -45,7 +45,7 @@
 
     <section class="flex flex-row">
         <p  class="mr-2">Already have an account?</p>
-        <button class=" hover:underline mx-0.5 sm:mx-0.5 lg:mx-1 text-sky-400 "><a href="/"> Log in </a></button>
+        <button class=" hover:underline mx-0.5 sm:mx-0.5 lg:mx-1 text-sky-400 "><a href="/logIn"> Log in </a></button>
     </section>
 
     <button class="hover:text-gray-400 hover:border-gray-400 
