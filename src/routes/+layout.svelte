@@ -17,7 +17,10 @@
                     </button>
                     <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
                         <a href="/"> CO2 </a>
-                    </button>    
+                    </button> 
+                    <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                        <a href="/leaderboard"> Leaderboard </a>
+                     </button>   
                     <button>
                         <a href="/">
                             <img src="/profile.png" alt="Profile" class="h-8 sm:h-8 md:h-10 lg:h-12 w-auto max-h-12 max-w-12 object-cover"/>
