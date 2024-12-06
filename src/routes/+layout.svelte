@@ -13,7 +13,7 @@
                 </section>
                 <section class="flex items-center space-x-2 sm:space-x-2 md:space-x-4 lg:space-x-6">
                     <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
-                       <a href="/"> About </a>
+                       <a href="/about"> About </a>
                     </button>
                     <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
                         <a href="/"> CO2 </a>
