@@ -12,7 +12,7 @@
     <h2 class="text-3xl font-bold text-slate-100 text-center mb-6">
         Global Leaderboard
     </h2>
-    <section class="bg-gray-800 bg-opacity-90 shadow-lg rounded-lg">
+    <section class="bg-zinc-900 bg-opacity-90 shadow-lg rounded-lg">
         <table class="w-full text-slate-100">
             <thead>
                 <tr class="border-b border-gray-700">
