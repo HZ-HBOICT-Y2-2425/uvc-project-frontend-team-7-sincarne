@@ -48,6 +48,6 @@
         <button class=" hover:underline mx-0.5 sm:mx-0.5 lg:mx-1 text-sky-400 "><a href="/logIn"> Log in </a></button>
     </section>
 
-  
+
 
 </section>
