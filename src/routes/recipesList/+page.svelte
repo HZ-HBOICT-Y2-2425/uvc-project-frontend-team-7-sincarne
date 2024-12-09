@@ -16,6 +16,7 @@
         
         {#each [{ title: "Recipe 1", img: "/recipe1.jpg" , calories: 1000 , proteins: 75}, { title: "Recipe 2", img: "/recipe2.jpg" , calories: 1000 , proteins: 75}, { title: "Recipe 3", img: "/recipe3.jpg" , calories: 1000  , proteins: 75}] as recipe}
             <section class="relative group rounded-lg overflow-hidden shadow-lg">
+                <a href="/recipeExample">
                 
 
                 <div
@@ -42,8 +43,11 @@
 
                 
                 </div>
+            </a>    
             </section>
         {/each}
+
+        
 
 
     </section>
