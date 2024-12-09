@@ -9,7 +9,7 @@
             background-image: url('/SinCarneLoginBg.png');
             background-size: contain;" >
         <h1 class="bg-black bg-opacity-70 py-6 text-2xl sm:text-3xl md:text-3xl font-bold text-center mb-6">
-            SIGN UP 
+            LOG IN 
         </h1>
 
         <form class="space-y-8 mx-4 sm:mx-6 md:mx-8 lg:mx-10">
@@ -39,13 +39,13 @@
                 type="submit" 
                 class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md transition-all"
             >
-                SIGN UP
+                LOG IN
             </button>
         </form>
 
         <p class="text-center text-sm text-slate-300 mt-16">
-            Already have an account? 
-            <a href="/logIn" class="text-sky-400 hover:underline">Log in</a>
+            Don't have an account yet? 
+            <a href="/registration" class="text-sky-400 hover:underline">Sign up</a>
         </p>
     </div>
 </section>
