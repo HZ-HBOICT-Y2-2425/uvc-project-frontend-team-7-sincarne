@@ -2,6 +2,7 @@
 	"name": "sincarne",
 	"version": "0.0.1",
 	"type": "module",
+	"proxy": "http://localhost:3000",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
