@@ -13,6 +13,12 @@
                 </section>
                 <section class="flex items-center space-x-2 sm:space-x-2 md:space-x-4 lg:space-x-6">
 
+                    <a href="/recipes">
+                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                            Recipes
+                        </button>
+                    </a>
+
                     <a href="/stat">
                         <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
                             Statistics

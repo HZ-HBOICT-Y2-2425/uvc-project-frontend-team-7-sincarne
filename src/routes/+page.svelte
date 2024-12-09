@@ -48,13 +48,6 @@
         <button class=" hover:underline mx-0.5 sm:mx-0.5 lg:mx-1 text-sky-400 "><a href="/logIn"> Log in </a></button>
     </section>
 
-    <button class="hover:text-gray-400 hover:border-gray-400 
-        border-slate-100  p-4 sm:px-12 md:px-16 lg:px-32
-        text-md sm:text-lg md:text-xl lg:text-2xl 
-        border-2 sm:border-2 lg:border-4 rounded-sm transition-all" 
-        on:click={changePage("/recipes")}>
-            DEMO TEST
-        
-    </button>
+  
 
 </section>
