@@ -1,6 +1,15 @@
-<script>
+<script lang='ts'>
 	// @ts-nocheck
-	import '../../app.css';
+	import CreateRecipeModal from '$lib/componenets/CreateRecipeModal.svelte';
+import '../../app.css';
+
+	let isModalOpen = $state(false);
+
+	function handleClick(){
+		isModalOpen = true;
+	}
+
+
 </script>
 
 <section
@@ -30,9 +39,13 @@
 			</div>
 		</section>
 	{/each}
-    <section class>
-
-
+    <section>
+		<button onclick={handleClick}>
+			add new recipe
+		</button>
     </section>
+	{#if isModalOpen}
+		<CreateRecipeModal bind:isModalOpen={isModalOpen}/>
+	{/if}
 
 </section>
