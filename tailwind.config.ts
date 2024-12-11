@@ -5,7 +5,9 @@ export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
 
   theme: {
-    extend: {},
+    extend: { colors: {
+      color: "red",
+    },},
   },
 
   plugins: [require('@tailwindcss/aspect-ratio')],
