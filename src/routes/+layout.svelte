@@ -30,12 +30,6 @@
                         </button>   
                     </a>
 
-                    <a href="/leaderboard">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
-                            Leaderboard 
-                        </button>   
-                    </a>
-
                     <a href="/recipesList">
                         <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
                             Recipes
@@ -50,7 +44,13 @@
 
                     <a href="/">
                         <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
-                            Achivments 
+                            Achievements 
+                        </button>
+                    </a>
+
+                    <a href="/teams">
+                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                            Teams
                         </button>
                     </a>
                    
