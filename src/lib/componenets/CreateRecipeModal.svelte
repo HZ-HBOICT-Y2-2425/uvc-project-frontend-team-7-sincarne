@@ -12,8 +12,9 @@
 		isModalOpen = false;
 	}
 
+	//todo: error handling
 	async function createRecipe(){
-		await axios.post<{name : string}>('/nutri/search/',{name:name}).then(res => console.log(res));
+		await axios.post<{name : string}>('/user/createRecipe/',{name:name}).then(res => console.log(res));
 	}
 
 
