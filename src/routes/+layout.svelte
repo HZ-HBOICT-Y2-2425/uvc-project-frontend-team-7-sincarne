@@ -30,12 +30,6 @@
                         </button>   
                     </a>
 
-                    <a href="/leaderboard">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
-                            Leaderboard 
-                        </button>   
-                    </a>
-
                     <a href="/recipesList">
                         <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
                             Recipes
@@ -50,7 +44,7 @@
 
                     <a href="/">
                         <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
-                            Achivments 
+                            Achievements 
                         </button>
                     </a>
                    
@@ -70,10 +64,11 @@
     <main class="mt-2 flex-grow relative">
         {@render children()}
     </main>
-
+    <a href=/popup>
     <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center w-full mt-auto">
         <p class="p-2 text-center text-slate-50 font-bold">TOGETHER, WE CAN MAKE A DIFFERENCE</p>
     </footer>
+    </a>
 </section>
 
 <style>
