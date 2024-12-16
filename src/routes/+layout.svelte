@@ -31,16 +31,6 @@
                             Recipes
                         </button>
                     </a>
-                    <a href="/stat">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
-                            Statistics
-                        </button>
-                    </a>
-                    <a href="/">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
-                            Achievements
-                        </button>
-                    </a>
                     <a href="/teams">
                         <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
                             Teams
