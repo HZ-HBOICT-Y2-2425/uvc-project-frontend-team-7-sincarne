@@ -44,7 +44,13 @@
 
                     <a href="/">
                         <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
-                            Achievements 
+                            Achievments 
+                        </button>
+                    </a>
+
+                    <a href="/diet">
+                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                            Diet
                         </button>
                     </a>
                    
