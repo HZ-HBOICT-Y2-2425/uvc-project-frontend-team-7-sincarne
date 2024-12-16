@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import type { Config } from 'tailwindcss';
 
 export default {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
+  content: ['./src/**/*.{html,js,svelte,ts}'],
 
-	theme: {
-		extend: {}
-	},
+  theme: {
+    extend: { colors: {
+      color: "red",
+    },},
+  },
 
-	plugins: []
+  plugins: [require('@tailwindcss/aspect-ratio')],
 } satisfies Config;
