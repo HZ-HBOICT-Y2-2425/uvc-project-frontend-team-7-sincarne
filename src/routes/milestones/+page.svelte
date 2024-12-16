@@ -32,7 +32,7 @@
 </script>
 
 <section class="mx-4 text-slate-100 flex flex-col items-center justify-center space-y-4 sm:space-y-8 md:space-y-12 lg:space-y-14 relative">
-    <div class="border-4 border-slate-100 bg-slate-800 bg-opacity-50 pb-8 rounded-sm shadow-lg text-slate-100 max-w-3xl w-full h-auto relative"> <!-- Updated max-w-xl to max-w-3xl -->
+    <div class="bg-zinc-900 bg-opacity-50 pb-8 rounded-sm shadow-lg text-slate-100 max-w-3xl w-full h-auto relative"> <!-- Updated max-w-xl to max-w-3xl -->
 
         <h1 class="bg-black bg-opacity-70 py-6 text-2xl sm:text-3xl md:text-3xl font-bold text-center mb-6">
             Milestones
@@ -40,7 +40,7 @@
 
         <div class="space-y-4 px-6"> 
             {#each milestones as milestone}
-                <div class="bg-slate-700 p-4 rounded-lg">
+                <div class="bg-zinc-900 p-4 rounded-lg">
                     <h3 class="text-xl font-semibold text-white">{milestone.name}</h3>
                     <p class="text-sm text-slate-300">{milestone.description}</p>
                     <p class="text-sm text-slate-300">Progress: {milestone.progress} / {milestone.goal}</p>
