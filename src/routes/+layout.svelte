@@ -32,6 +32,12 @@
                     <a href="/teams">
                         <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">Teams</button>
                     </a>
+
+                    <a href="/diet">
+                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                            Diet
+                        </button>
+                    </a>
                     <button>
                         <a href="/">
                             <img src="/profile.png" alt="Profile" class="h-8 sm:h-8 md:h-10 lg:h-12 w-auto max-h-12 max-w-12 object-cover"/>
@@ -45,10 +51,11 @@
     <main class="mt-2 flex-grow relative">
         {@render children()}
     </main>
-
-    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center w-full mt-auto mt-8">
+    <a href=/popup>
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center w-full mt-auto">
         <p class="p-2 text-center text-slate-50 font-bold">TOGETHER, WE CAN MAKE A DIFFERENCE</p>
     </footer>
+    </a>
 </section>
 
 
