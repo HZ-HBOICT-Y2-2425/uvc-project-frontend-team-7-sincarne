@@ -12,25 +12,39 @@
                 </section>
                 <section class="flex items-center space-x-2 sm:space-x-2 md:space-x-4 lg:space-x-6">
                     <a href="/about">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">About</button>
+                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                            About
+                        </button>
                     </a>
-                    <a href="/"> 
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">CO2</button> 
+                    <a href="/co2global"> 
+                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                            CO2
+                        </button> 
                     </a>
                     <a href="/leaderboard">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">Leaderboard</button>   
+                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                            Leaderboard
+                        </button>   
                     </a>
                     <a href="/recipesList">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">Recipes</button>
+                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                            Recipes
+                        </button>
                     </a>
                     <a href="/stat">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">Statistics</button>
+                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                            Statistics
+                        </button>
                     </a>
                     <a href="/">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">Achievements</button>
+                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                            Achievements
+                        </button>
                     </a>
                     <a href="/teams">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">Teams</button>
+                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                            Teams
+                        </button>
                     </a>
 
                     <a href="/diet">
