@@ -14,7 +14,6 @@ export default [
     'no-unused-vars': 'warn',        // Warn on unused variables
     '@typescript-eslint/no-unused-vars': 'warn', // TypeScript-specific rule for unused vars
     'semi': ['error', 'always'],     // Enforce semicolons at the end of statements
-    'indent': ['error', 2],          // Enforce 2-space indentation
     'eqeqeq': ['error', 'always'],   // Require strict equality checks (===)
     '@typescript-eslint/explicit-module-boundary-types': 'error', // Enable explicit return types for functions
     '@typescript-eslint/no-explicit-any': 'warn', // Warn when `any` type is used

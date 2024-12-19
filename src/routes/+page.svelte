@@ -1,14 +1,14 @@
-<script>
-// @ts-nocheck
+<script lang="ts">
+
 
     import "../app.css";
 
-    /**
-	 * @param {string} route
-	 */
-    function changePage(route){
+    function changePage(route : string){
         location.href = route;
+        console.log("fetch")
     }
+
+
 </script>
 
 <section class="mx-4 text-slate-100 flex flex-col items-center justify-center space-y-4 sm:space-y-8 md:space-y-12 lg:space-y-14">
@@ -36,18 +36,24 @@
     <button class="hover:text-gray-400 hover:border-gray-400 
         border-slate-100  p-4 sm:px-12 md:px-16 lg:px-32
         text-md sm:text-lg md:text-xl lg:text-2xl 
-        border-2 sm:border-2 lg:border-4 rounded-sm transition-all"
-        on:click={changePage("/registration")} >
-        
-            REGISTER NOW
+        border-2 sm:border-2 lg:border-4 rounded-sm transition-all" 
+        on:click={()=>{changePage("/user/login")}}>
+        REGISTER NOW
        
     </button>
 
     <section class="flex flex-row">
         <p  class="mr-2">Already have an account?</p>
-        <button class=" hover:underline mx-0.5 sm:mx-0.5 lg:mx-1 text-sky-400 "><a href="/logIn"> Log in </a></button>
+        <button class="hover:text-sky-800 hover:underline mx-0.5 sm:mx-0.5 lg:mx-1 text-sky-400 transition-all"><a href="/"> Log in </a></button>
     </section>
 
-
+    <button class="hover:text-gray-400 hover:border-gray-400 
+        border-slate-100  p-4 sm:px-12 md:px-16 lg:px-32
+        text-md sm:text-lg md:text-xl lg:text-2xl 
+        border-2 sm:border-2 lg:border-4 rounded-sm transition-all" 
+        on:click={()=>{changePage("/recipes")}}>
+            DEMO TEST
+        
+    </button>
 
 </section>
