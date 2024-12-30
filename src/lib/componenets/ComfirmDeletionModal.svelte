@@ -5,11 +5,10 @@
 		text: string;
 		deletionFunc: () => void;
 	}
-	let { text = $bindable(), deletionFunc }: IProps = $props();
+	let { text, deletionFunc }: IProps = $props();
 
 	function closeModal() {
 		text = '';
-		console.log(text);
 	}
 </script>
 {#if text}

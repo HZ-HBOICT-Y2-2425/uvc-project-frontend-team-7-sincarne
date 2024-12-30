@@ -300,9 +300,7 @@
 
 {#if recipe !== null}
 	<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-		{#if deletionModal.text.length > 0}
-			<ComfirmDeletionModal text={deletionModal.text} deletionFunc={deletionModal.deletionFunc} />
-		{/if}
+		<ComfirmDeletionModal text={deletionModal.text} deletionFunc={deletionModal.deletionFunc} />
 		<section class="flex flex-col bg-zinc-900 bg-opacity-90 shadow-lg rounded-lg text-white">
 			<div class="flex flex-row">
 				<div
