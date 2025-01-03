@@ -1,10 +1,27 @@
 <script lang="ts">
-    let userCO2Saved = 150; 
+    import { onMount } from "svelte";
+
+    let userCO2Saved = 0;
 
     function formatCO2Saved(co2: number): string {
-        return co2.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+        return co2.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     }
+
+    onMount(async () => {
+        try {
+            const response = await fetch("http://localhost:3000/co2personal", { credentials: "include" });
+            if (response.ok) {
+                const data = await response.json();
+                userCO2Saved = data.co2Saved;
+            } else {
+                console.error("Failed to fetch user CO2 data:", await response.text());
+            }
+        } catch (err) {
+            console.error("Error fetching user CO2 data:", err);
+        }
+    });
 </script>
+
 
 <section class="flex flex-col items-center justify-center h-screen text-slate-100">
     <h1 class="text-5xl font-bold mb-8">Your CO2 Savings</h1>
