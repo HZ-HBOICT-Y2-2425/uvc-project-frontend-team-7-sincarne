@@ -9,7 +9,7 @@
 
     onMount(async () => {
         try {
-            const response = await fetch("http://localhost:3000/co2global");
+            const response = await fetch("http://localhost:3000/user/co2global");
             if (response.ok) {
                 const data = await response.json();
                 totalCO2Saved = data.totalCO2;
