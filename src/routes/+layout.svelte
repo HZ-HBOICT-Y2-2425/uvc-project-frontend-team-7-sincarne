@@ -3,7 +3,7 @@
     let { children } = $props();
 </script>
 
-<section class="bg-cover bg-center bg-fixed min-h-screen flex flex-col" style="background-image: url('/SinCarneBg.png')">
+<section class="bg-cover bg-center bg-fixed min-h-screen flex flex-col bg-blur-md" style="background-image: url('/MainBg3.jpg')">
     <header>
         <section class="bg-black bg-opacity-50 text-slate-100 top-0 w-full">
             <nav class="max-w-7xl mx-auto px-2 sm:px-2 md:px-4 lg:px-6 flex items-center justify-between h-16">

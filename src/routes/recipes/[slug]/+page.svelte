@@ -125,7 +125,7 @@
 		// For each ingredient we will fetch for extra information
 		let index = 0;
 		for (const ingredient of recipe.ingredients) {
-			await axios.get('/nutri/isMeat/' + ingredient.name).then((response) => {
+			await axios.get('/nutri/isMeat/' + encodeURIComponent(ingredient.name)).then((response) => {
 				const parsed = isMeatSchema.safeParse(response.data);
 				if (!parsed.success) {
 					console.log(parsed.error);
@@ -313,8 +313,9 @@
 							<p>{ingredient.is_meat}</p>
 						</button>
 					{/each}
-					<SearchIngrecient labelText="add new Ingredient" params={[]} addFunction={addIngredient}/>
+					<SearchIngrecient labelText="add new Ingredient" callback={ {func: addIngredient, params: []}} comfirmation={true}/>
 				</section>
+
 				<section class="w-[50%] flex flex-col">
 					{#if selectedIngredient !== null}
 						<h1>{selectedIngredient.name}</h1>
