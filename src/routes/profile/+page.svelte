@@ -6,18 +6,28 @@
     let message: string | null = null; 
     let bio = '';
 
+    export let data;
+	if (data.redirect) {
+        location.href = data.redirect; // Perform the redirect to the backend route
+    } else {
+        name = data.name;
+        profilePicture = data.picture;
+    }
+
     // On page load, check if there's a saved profile picture and name in localStorage
     import { onMount } from 'svelte';
 
     onMount(() => {
-        const savedProfilePicture = localStorage.getItem('profilePicture');
-        const savedName = localStorage.getItem('name');
+        if (name === '') {
+            const savedProfilePicture = localStorage.getItem('profilePicture');
+            const savedName = localStorage.getItem('name');
 
-        if (savedProfilePicture) {
-            profilePicture = savedProfilePicture;
-        }
-        if (savedName) {
-            name = savedName;
+            if (savedProfilePicture) {
+                profilePicture = savedProfilePicture;
+            }
+            if (savedName) {
+                name = savedName;
+            }
         }
     });
 
@@ -52,7 +62,7 @@
     // Log out function
     function logOut() {
         // Redirect to login page 
-        window.location.href = '/registration'; 
+        window.location.href = 'http://localhost:3011/user/logout'; 
     }
 </script>
 
@@ -89,9 +99,14 @@
                 <!-- Profile Picture Section -->
                 <div class="my-4">
                     {#if profilePicture}
-                        <img src="{profilePicture}" alt="Profile Picture" class="mx-auto mb-4 w-48 h-48 rounded-full object-cover border-2 border-gray-300" />
+                        <!-- svelte-ignore a11y_img_redundant_alt -->
+                        <img src="{profilePicture}" 
+                        alt="Profile Picture" 
+                        class="mx-auto mb-4 w-48 h-48 rounded-full object-cover border-2 border-gray-300" />
                     {:else}
-                        <img src="https://via.placeholder.com/200" alt="Placeholder" class="mx-auto mb-4 w-48 h-48 rounded-full object-cover border-2 border-gray-300" />
+                        <img src="https://via.placeholder.com/200" 
+                        alt="Placeholder" 
+                        class="mx-auto mb-4 w-48 h-48 rounded-full object-cover border-2 border-gray-300" />
                     {/if}
                     <input 
                         type="file" 
