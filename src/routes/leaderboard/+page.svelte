@@ -12,7 +12,7 @@
 
 	onMount(async () => {
 		try {
-			const response = await fetch('http://localhost:3000/api/leaderboard');
+			const response = await fetch("http://localhost:3000/user/leaderboard");
 			if (response.ok) {
 				users = await response.json();
 			} else {
