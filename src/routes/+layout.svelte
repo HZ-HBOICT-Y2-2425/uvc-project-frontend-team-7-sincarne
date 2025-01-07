@@ -62,9 +62,11 @@
         {@render children()}
     </main>
     <a href=/popup>
-    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center w-full mt-auto">
-        <p class="p-2 text-center text-slate-50 font-bold">TOGETHER, WE CAN MAKE A DIFFERENCE</p>
-    </footer>
+        <footer class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center w-full mt-auto">
+            <p class="p-2 text-center text-slate-50 font-bold absolute-center">TOGETHER, WE CAN MAKE A DIFFERENCE</p>
+            <p class="absolute right-4 text-right text-slate-100 font-italic">Version 2.0.0</p>
+        </footer>
+        
     </a>
 </section>
 
