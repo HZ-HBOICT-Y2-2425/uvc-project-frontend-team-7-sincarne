@@ -4,30 +4,31 @@
 	import axios from 'axios';
 	import { z } from 'zod';
 	import { page } from '$app/state';
-	import type { IIngredient } from '$lib/helpers/caclucateMarcosRecipe';
-	import { calculateMarcosForARecipe, marcosSchema } from '$lib/helpers/caclucateMarcosRecipe';
+	import { calculateMarcosForARecipe } from '$lib/helpers/caclucateMarcosRecipe';
 	import ComfirmDeletionModal from '$lib/componenets/ComfirmDeletionModal.svelte';
-	import type { InewIngredient } from '$lib/componenets/SearchIngrecient.svelte';
 	import SearchIngrecient from '$lib/componenets/SearchIngrecient.svelte';
-
-	interface IMacros {
-		name: string;
-		nutrient_value: number;
-		unit_name: string;
-	}
+	import {
+		type InewIngredient,
+		type IIngredient,
+		type IMacros,
+		type IRecipe,
+		co2schema
+	} from '$lib/helpers/recipesTypesAndSchemas';
+	import { macroSchema, recipeSchema, isMeatSchema } from '$lib/helpers/recipesTypesAndSchemas';
+	import LoadingPlaceholder from '$lib/componenets/LoadingPlaceholder.svelte';
 
 	// 	  States
 	// -----||-------
-	let recipe: {
-		id: number;
-		name: string;
-		image_path: string | null;
-		total_calories: number;
-		total_fats: number;
-		total_carbs: number;
-		total_protein: number;
-		ingredients: IIngredient[];
-	} | null = $state(null);
+	let recipe: IRecipe | null = $state(null);
+	let CO2total = $derived.by(()=>{
+		let sum = 0;
+		if(recipe){
+			recipe.ingredients.forEach((ing)=>{
+				sum+= ing.emission * ing.amount / 100;
+			})
+		}
+		return sum;
+	})
 
 	let selectedIngredient: {
 		ingredient_code: string;
@@ -66,32 +67,6 @@
 	});
 
 	// -----||-------
-
-	//   Schemas
-	// -----||-------
-	const recipeSchema = z.object({
-		id: z.number(),
-		name: z.string(),
-		image_path: z.string().nullable(),
-		total_calories: z.number(),
-		total_fats: z.number(),
-		total_carbs: z.number(),
-		total_protein: z.number(),
-		ingredients: z.array(
-			z.object({
-				name: z.string(),
-				amount: z.number(),
-				is_meat: z.string().optional(),
-				ingredient_code: z.string().optional()
-			})
-		)
-	});
-
-	const isMeatSchema = z.object({
-		is_meat: z.string(),
-		ingredient_code: z.string()
-	});
-
 	const meatfreeSuggestionsSchema = z.array(
 		z.object({
 			ingredient_code: z.number(),
@@ -146,7 +121,7 @@
 		// Calculate total macros for the recipes
 	}
 
-	async function addIngredient(newIngredient : InewIngredient) {
+	async function addIngredient(newIngredient: InewIngredient) {
 		// If neither of them isn't set user isn't allowed to make the request
 		// todo: make this visual on the page itself
 		if (!newIngredient.ingredient_name || !newIngredient.amount) {
@@ -199,7 +174,7 @@
 		await axios
 			.get('/nutri/getNutritions/ByCode/' + ingredient.ingredient_code)
 			.then((response) => {
-				const parsed = marcosSchema.safeParse(response.data);
+				const parsed = macroSchema.safeParse(response.data);
 				if (!parsed.success) {
 					console.log(parsed.error);
 					return;
@@ -213,8 +188,51 @@
 					is_meat: ingredient.is_meat === 'True',
 					ratio: ingredient.amount / 100
 				};
+				meatfreeSuggestions = [];
 			});
 	}
+	async function substituteIngredient(ingredient_code: number, ingredient_des: string) {
+		let emissionDiff = 0;
+		// get emission of the substitueing igredient
+		await axios.get('/nutri/getEmission/' + ingredient_code.toString()).then((response) => {
+			const parsed = co2schema.safeParse(response.data);
+			if (!parsed.success) {
+				console.log(parsed.error);
+				return;
+			}
+			emissionDiff -= parsed.data.amount;
+		});
+		// get emission of selected meat ingredient
+		await axios
+			.get('/nutri/getEmission/' + selectedIngredient?.ingredient_code.toString())
+			.then((response) => {
+				const parsed = co2schema.safeParse(response.data);
+				if (!parsed.success) {
+					console.log(parsed.error);
+					return;
+				}
+				emissionDiff += parsed.data.amount;
+			});
+
+		// add the subsitutited ingredient to the recipe
+		await axios.post('/user/recipes/' + recipe?.id + '/addIngredient', {
+			ingredient_name: ingredient_des,
+			amount: (selectedIngredient?.ratio ?? 0) * 100,
+			emission: emissionDiff
+		});
+
+		// Delete selected ingrediented
+		updateIngredient(
+			{
+				ingredient_code: selectedIngredient?.ingredient_code ?? '',
+				name: selectedIngredient?.name ?? '',
+				amount: 0,
+				emission: 0
+			},
+			true
+		);
+	}
+
 	async function suggest(macro: string, ingredient_code: string) {
 		axios.get('/nutri/getSuggestions/' + macro + '/' + ingredient_code).then((response) => {
 			const parsed = meatfreeSuggestionsSchema.safeParse(response.data);
@@ -240,112 +258,165 @@
 	}
 	async function deleteRecipe() {
 		await axios.delete('/user/deleteRecipe/' + recipe_id);
-		location.href = '/recipes';
+		location.href = '/diary';
 	}
-	$effect(()=>{
-		if(deletionModal.text){
-			console.log(deletionModal.text)
+	$effect(() => {
+		if (deletionModal.text) {
+			console.log(deletionModal.text);
 		}
-	})
+	});
 
 	onMount(async () => {
 		await getRecipe();
 	});
 </script>
 
-{#if recipe !== null}
 	<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+		<a href="/diary/" class="text-lg text-white font-semibold">Back</a>
 		<ComfirmDeletionModal text={deletionModal.text} deletionFunc={deletionModal.deletionFunc} />
-		<section class="flex flex-col bg-zinc-900 bg-opacity-90 shadow-lg rounded-lg text-white">
-			<div class="flex flex-row">
-				<div
-					class="w-[50%] bg-auto bg-no-repeat bg-center"
-					style="background-image: url('{recipe.image_path ?? './recipe1.jpg'}')"
-				></div>
-				<div class="flex flex-col w-[50%]">
-					<h1>{recipe.name}</h1>
+
+		<section class="flex flex-col bg-zinc-900 bg-opacity-90 shadow-lg rounded-lg text-white p-6">
+			<!-- Recipe Header -->
+			<div class="flex flex-row border-b border-gray-700 pb-4 mb-4">
+				<div class="flex flex-col w-1/2">
+					{#if recipe}
+					<h1 class="text-2xl font-bold capitalize mb-2">{recipe.name}</h1>
+					{:else}
+					<LoadingPlaceholder width="1/2" height="2rem"/>
+					{/if}
 					<div>
 						{#if !calculatingMarcos}
-							<p>
-								{totalMarcos.total_calories}
-							</p>
-							<p>
-								{totalMarcos.total_protein}
-							</p>
-							<p>
-								{totalMarcos.total_carbs}
-							</p>
-							<p>
-								{totalMarcos.total_fats}
-							</p>
+							<p>CO2 prevented: <strong>{CO2total}</strong></p>
+							<p>Calories: <strong>{totalMarcos.total_calories}</strong></p>
+							<p>Protein: <strong>{totalMarcos.total_protein}</strong></p>
+							<p>Carbs: <strong>{totalMarcos.total_carbs}</strong></p>
+							<p>Fats: <strong>{totalMarcos.total_fats}</strong></p>
 						{:else}
-							<p>Calculating marcos ...</p>
+							<p>Calculating macros...</p>
 						{/if}
 					</div>
 				</div>
 			</div>
-			<section class="flex flex-row">
-				<section class="flex flex-col w-[50%]">
+
+			<!-- Content Sections -->
+			<section class="flex flex-row gap-8">
+				<!-- Ingredients Section -->
+				<section class="flex flex-col w-1/2 space-y-4">
+					<div
+						class="flex items-center p-2 bg-gray-800 rounded-lg hover:bg-gray-700 justify-between font-semibold"
+					>
+						<p class="mr-8">Amount:</p>
+						<p>Name:</p>
+						<p>C02 Prevented: </p>
+					</div>
+					{#if recipe}
 					{#each recipe.ingredients as ingredient}
 						<button
-							class="flex flex-row"
+							class="flex items-center p-2 bg-gray-800 rounded-lg hover:bg-gray-700 transition border-2 {ingredient.is_meat ===
+							'True'
+								? 'border-red-500'
+								: 'border-green-500'}"
 							onclick={() => {
 								selectIngredient({
 									name: ingredient.name,
 									ingredient_code: ingredient.ingredient_code,
 									amount: ingredient.amount,
-									is_meat: ingredient.is_meat
+									is_meat: ingredient.is_meat,
+									emission: ingredient.emission
 								});
 							}}
 						>
-							<p class="mr-5">
+							<p class="mr-5 flex items-center">
 								<input
 									type="number"
 									name="weight"
-									class="text-black"
+									class="w-16 px-2 py-1 text-white rounded-lg focus:outline-none bg-gray-900 appearance-none font-semibold"
+									style="-moz-appearance: textfield;"
 									bind:value={ingredient.amount}
 									onchange={async () => {
 										updateIngredient(ingredient);
 									}}
-								/><strong>g</strong>
+								/>
+								<strong class="ml-1">g</strong>
 							</p>
-							<p class="mr-2">{ingredient.name}</p>
-							<p>{ingredient.is_meat}</p>
+							<p class="{ingredient.emission ? 'mr-4' : 'mr-20'} flex-grow text-center">
+								{ingredient.name}
+							</p>
+							{#if ingredient.emission}
+
+								<p class="font-semibold text-green-500 ml-auto mr-2">
+									
+									{(ingredient.emission * ingredient.amount) / 100}
+								</p>
+							{/if}
 						</button>
 					{/each}
-					<SearchIngrecient labelText="add new Ingredient" callback={ {func: addIngredient, params: []}} comfirmation={true}/>
+					{:else}
+						{#each {length: 3}}
+							<LoadingPlaceholder width="full" height="50px"/>
+						{/each}
+					{/if}
+					<SearchIngrecient
+						callback={{ func: addIngredient, params: [] }}
+						comfirmation={true}
+					/>
 				</section>
 
-				<section class="w-[50%] flex flex-col">
+				<!-- Selected Ingredient Details Section -->
+				<section class="w-1/2 flex flex-col space-y-4">
 					{#if selectedIngredient !== null}
-						<h1>{selectedIngredient.name}</h1>
-						{#each selectedIngredient.macros as macro}
-							<h3>{macro.name}</h3>
-							<p>
-								{macro.nutrient_value * selectedIngredient.ratio}<strong>{macro.unit_name}</strong>
-							</p>
-						{/each}
-						<hr />
+						<h2 class="text-xl font-semibold capitalize">{selectedIngredient.name}</h2>
+						<div class="space-y-2">
+							{#each selectedIngredient.macros as macro}
+								<div>
+									<h3 class="font-semibold">{macro.name}</h3>
+									<p>
+										{macro.nutrient_value * selectedIngredient.ratio}
+										<strong>{macro.unit_name}</strong>
+									</p>
+								</div>
+							{/each}
+						</div>
+						<hr class="border-gray-700 my-4" />
 						{#if selectedIngredient.is_meat}
-							Suggest plan based alternative
-							<div>
+							<p class="text-sm italic">Suggested plant-based alternatives:</p>
+							<div class="flex space-x-2">
 								<button
+									class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
 									onclick={() => {
-										//@ts-ignore
-										// Ignoreing selectedIngredient can be null since this part wouldn't be visible if it was
-										suggest('protein', selectedIngredient?.ingredient_code);
-									}}>Protein</button
+										suggest('protein', selectedIngredient?.ingredient_code ?? '');
+									}}
 								>
+									Protein
+								</button>
 								<button
+									class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
 									onclick={() => {
-										//@ts-ignore
-										// Ignoreing selectedIngredient can be null since this part wouldn't be visible if it was
-										suggest('calories', selectedIngredient?.ingredient_code);
-									}}>Calories</button
+										suggest('calories', selectedIngredient?.ingredient_code ?? '');
+									}}
 								>
+									Calories
+								</button>
 							</div>
 						{/if}
+						{#each meatfreeSuggestions as suggestion}
+							<div class="flex items-center justify-between">
+								<button
+									onclick={() => {
+										substituteIngredient(
+											suggestion.ingredient_code,
+											suggestion.ingredient_description
+										);
+									}}
+									class="text-sm bg-gray-800 p-2 rounded hover:bg-gray-700 transition"
+								>
+									{suggestion.ingredient_description}
+								</button>
+								<strong>{suggestion.nutrient_value * selectedIngredient.ratio}</strong>
+							</div>
+						{/each}
 						<button
+							class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
 							onclick={async () => {
 								deletionModal = {
 									deletionFunc: () => {
@@ -353,40 +424,35 @@
 											{
 												ingredient_code: selectedIngredient?.ingredient_code ?? '',
 												name: selectedIngredient?.name ?? '',
-												amount: 0
+												amount: 0,
+												emission: 0
 											},
 											true
 										);
 									},
 									text: 'Are you sure you want to delete this ingredient?'
 								};
-								console.log(deletionModal);
-								/*
-								await updateIngredient(
-									{
-										ingredient_code: selectedIngredient?.ingredient_code ?? '',
-										name: selectedIngredient?.name ?? '',
-										amount: 0
-									},
-									true
-								);
-								*/
-							}}>delete</button
+							}}
 						>
-						{#each meatfreeSuggestions as suggestion}
-							<button onclick={() => {}}>{suggestion.ingredient_description}</button>
-							<strong>{suggestion.nutrient_value * selectedIngredient.ratio}</strong>
-						{/each}
+							Delete
+						</button>
 					{/if}
 				</section>
 			</section>
-			<button onclick={ () => {
-				deletionModal = {
-					deletionFunc: deleteRecipe,
-					text: "Are you sure, you wish to delete this recipe ?"
-				}
-			}
-			}>DELETE THIS RECIPE</button>
+
+			<!-- Delete Recipe Button -->
+			{#if recipe}
+			<button
+				class="mt-6 bg-red-800 text-white px-6 py-2 rounded hover:bg-red-700 transition"
+				onclick={() => {
+					deletionModal = {
+						deletionFunc: deleteRecipe,
+						text: 'Are you sure you wish to delete this recipe?'
+					};
+				}}
+			>
+			Delete recipe
+			</button>
+			{/if}
 		</section>
 	</section>
-{/if}

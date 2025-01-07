@@ -1,20 +1,9 @@
 import axios from 'axios';
 import { z } from 'zod';
+import type { IIngredient } from './recipesTypesAndSchemas';
+import { macroSchema } from './recipesTypesAndSchemas'
 
-export interface IIngredient {
-	name: string;
-	amount: number;
-	is_meat?: string;
-	ingredient_code?: string;
-}
 
-export const marcosSchema = z.array(
-	z.object({
-		name: z.string(),
-		nutrient_value: z.number(),
-		unit_name: z.string()
-	})
-);
 
 export async function calculateMarcosForARecipe(ingredients: IIngredient[]): Promise<{
 	total_calories: number;
@@ -31,11 +20,12 @@ export async function calculateMarcosForARecipe(ingredients: IIngredient[]): Pro
 
 	for (const ingredient of ingredients) {
 		await axios
-			.get('/nutri/getNutritions/ByCode/' + ingredient.ingredient_code)
+			.get('/nutri/getNutritions/ByName/' + encodeURIComponent(ingredient.name))
 			.then((response) => {
 				//console.log("code: ",ingredient.ingredient_code)
 				//console.log("data: ",response.data)
-				const parsed = marcosSchema.safeParse(response.data);
+				const parsed = macroSchema.safeParse(response.data);
+				
 				if (!parsed.success) {
 					console.log(parsed.error);
 					return;
@@ -45,6 +35,7 @@ export async function calculateMarcosForARecipe(ingredients: IIngredient[]): Pro
 						let previous = transcript.get(macro.name) ?? 0;
 						transcript.set(macro.name, previous + macro.nutrient_value * (ingredient.amount / 100));
 					}
+
 				});
 			});
 	}
