@@ -14,7 +14,9 @@
 
 	//todo: error handling
 	async function createRecipe(){
-		await axios.post<{name : string}>('/user/createRecipe/',{name:name}).then(res => console.log(res));
+
+		await axios.post<{name : string}>('/user/createRecipe/',{name:name}).then(() => {isModalOpen = false;}
+		);
 	}
 
 
