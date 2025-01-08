@@ -1,25 +1,17 @@
 <script lang="ts">
-    import { onMount } from "svelte";
 
     let totalCO2Saved = 0;
+
+    export let data;
+	if (data.redirect) {
+        location.href = data.redirect; // Perform the redirect to the backend route
+    } else {
+        totalCO2Saved = data.totalCO2Saved;
+    }
 
     function formatCO2Saved(co2: number): string {
         return co2.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     }
-
-    onMount(async () => {
-        try {
-            const response = await fetch("http://localhost:3000/user/co2global");
-            if (response.ok) {
-                const data = await response.json();
-                totalCO2Saved = data.totalCO2;
-            } else {
-                console.error("Failed to fetch global CO2 data:", await response.text());
-            }
-        } catch (err) {
-            console.error("Error fetching global CO2 data:", err);
-        }
-    });
 </script>
     
 
