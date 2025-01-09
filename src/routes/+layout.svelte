@@ -26,11 +26,6 @@
                             Leaderboard
                         </button>   
                     </a>
-                    <a href="/recipesList">
-                        <button class="nav-link">
-                            Recipes
-                        </button>
-                    </a>
                     <a href="/teams">
                         <button class="nav-link">
                             Teams
@@ -41,11 +36,6 @@
                         <button class="nav-link">
                             Diet
                         </button>
-                    </a>
-                    <a href="/milestones">
-                      <button class="nav-link">
-                         Milestones 
-                      </button>  
                     </a>
                     <button>
                         <a href="/profile">

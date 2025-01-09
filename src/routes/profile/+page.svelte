@@ -78,13 +78,7 @@
             </button>
             <nav class="flex flex-col space-y-2">
                 <a href="/co2personal" class="text-slate-300 hover:text-white text-lg transition-colors">
-                    📊 Statistics
-                </a>
-                <a href="/achievements" class="text-slate-300 hover:text-white text-lg transition-colors">
-                    🏆 Achievements
-                </a>
-                <a href="/milestones" class="text-slate-300 hover:text-white text-lg transition-colors">
-                    🎯 Milestones
+                    Statistics
                 </a>
             </nav>
         </div>
