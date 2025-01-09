@@ -1,4 +1,5 @@
-<script lang="ts">
+
+<!-- <script lang="ts">
     let teamName = "Albanian Activists";
     let teamGoal = 500; 
     let currentSavings = 200; 
@@ -32,4 +33,4 @@
         padding: 2rem;
 		border-radius: 8px;
     }
-</style>
+</style> -->
