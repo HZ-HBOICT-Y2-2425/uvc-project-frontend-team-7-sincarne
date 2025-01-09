@@ -12,8 +12,9 @@ export const load = async (serverLoadEvent) => {
             const response = await fetch("http://localhost:3000/user/co2personal");
             if (response.ok) {
                 const data = await response.json();
+                console.log(data);
                 return {
-                    userCO2Saved: data.CO2saved
+                    userCO2Saved: data.co2Saved
                 };
             } else {
                 console.error("Failed to fetch global CO2 data:", await response.text());
