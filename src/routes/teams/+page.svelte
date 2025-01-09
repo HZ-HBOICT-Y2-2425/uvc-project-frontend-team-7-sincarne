@@ -1,9 +1,24 @@
 
-<!-- <script lang="ts">
+ <script lang="ts">
     let teamName = "Albanian Activists";
     let teamGoal = 500; 
     let currentSavings = 200; 
     let teamMembers = ["Zana", "Alban", "Donat"];
+
+    type Group = {
+      id: number,
+      name: string
+    }
+
+    let groups: Group[] = [];
+
+    export let data;
+	  if (data.redirect) {
+        location.href = data.redirect; // Perform the redirect to the backend route
+    } else {
+        groups = data.groups;
+    }
+
 </script>
 
 <section class="flex flex-col items-center justify-center h-screen text-slate-100">
@@ -33,4 +48,4 @@
         padding: 2rem;
 		border-radius: 8px;
     }
-</style> -->
+</style>
