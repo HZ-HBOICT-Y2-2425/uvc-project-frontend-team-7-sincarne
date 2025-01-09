@@ -44,7 +44,8 @@
         <div class="mt-6 text-center">
             <a href="/teams_admin" class="hover:underline">View as Admin</a>
         </div>
-    </div> -->
+    </div> 
+hi-->
 </section>
 
 <style>
