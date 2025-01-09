@@ -1,4 +1,74 @@
-<script lang="ts">
+<script>
+    // Static list of groups for now
+    let groups = [
+      { id: 1, name: 'Group A' },
+      { id: 2, name: 'Group B' },
+      { id: 3, name: 'Group C' }
+    ];
+  
+    let newGroupName = '';
+  </script>
+  
+  <div class="max-w-lg mx-auto p-4">
+    <h1 class="text-2xl text-white font-bold mb-4">Teams</h1>
+  
+    <!-- Add Group Form -->
+    <div class="mb-4">
+      <input
+        type="text"
+        bind:value={newGroupName}
+        placeholder="Enter group name"
+        class="p-2 rounded bg-gray-800 text-slate-100 w-1/2"
+      />
+      <button
+        on:click={() => {
+          if (newGroupName) {
+            groups = [...groups, { id: groups.length + 1, name: newGroupName }];
+            newGroupName = '';
+          }
+        }}
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Add Group
+      </button>
+    </div>
+  
+    <!-- Groups List -->
+    <ul>
+      {#each groups as group}
+        <li class="flex text-white justify-between items-center p-2 border-b">
+          <span>{group.name}</span>
+          <button
+            on:click={() => {
+              groups = groups.filter(g => g.id !== group.id);
+            }}
+            class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700"
+          >
+            Delete
+          </button>
+        </li>
+      {/each}
+    </ul>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <script lang="ts">
     let teamName = "Albanian Activists";
     let teamGoal = 500; 
     let currentSavings = 200; 
@@ -32,4 +102,4 @@
         padding: 2rem;
 		border-radius: 8px;
     }
-</style>
+</style> -->
