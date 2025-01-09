@@ -12,6 +12,7 @@ export const load = async (serverLoadEvent) => {
             const response = await fetch("http://localhost:3000/user/groups");
             if (response.ok) {
                 const data = await response.json();
+                console.log(data);
                 return {
                     groups: data.groups
                 };

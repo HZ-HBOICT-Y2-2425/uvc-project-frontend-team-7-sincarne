@@ -19,10 +19,15 @@
         groups = data.groups;
     }
 
+    console.log(groups);
+
 </script>
 
 <section class="flex flex-col items-center justify-center h-screen text-slate-100">
-    <h1 class="text-4xl font-bold mb-6">{teamName}</h1>
+    <div>
+        
+    </div>
+    <!-- <h1 class="text-4xl font-bold mb-6">{teamName}</h1>
     <div class="bg-zinc-900 bg-opacity-90 rounded-lg p-8 shadow-lg w-full max-w-3xl">
         <p class="text-lg mb-4">Team Goal: <span class="text-green-400">{teamGoal} kg</span></p>
         <p class="text-lg mb-8">Current Savings: <span class="text-green-400">{currentSavings} kg</span></p>
@@ -39,7 +44,7 @@
         <div class="mt-6 text-center">
             <a href="/teams_admin" class="hover:underline">View as Admin</a>
         </div>
-    </div>
+    </div> -->
 </section>
 
 <style>
