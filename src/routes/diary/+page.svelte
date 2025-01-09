@@ -13,9 +13,26 @@
 		co2schema
 	} from '$lib/helpers/recipesTypesAndSchemas';
 	import LoadingPlaceholder from '$lib/componenets/LoadingPlaceholder.svelte';
+
 	let currentDate: Date = $state.raw(new Date());
 
 	let newRecipeName: string = $state('');
+
+	type User = {
+		name: string;
+		co2Saved: number;
+		rank: number;
+		avatar: string;
+	};
+
+	let users: User[] = [];
+
+	const { data } : {users: User} = $props(); 
+	if (data.redirect) {
+		location.href = data.redirect; // Perform the redirect to the backend route
+	} else {
+		users = data.users;
+	}
 
 	let diaryValues: {
 		total_calories: number;
@@ -456,14 +473,37 @@
 			</section>
 			<!-- Leaderboards -->
 			<section class="p-6">
-				<nav class="flex gap-4 mb-2">
-					<button class="text-sm font-medium text-gray-300 hover:text-white">Global</button>
-					<button class="text-sm font-medium text-gray-300 hover:text-white">FriendGroup 1</button>
-				</nav>
-				<ul class="text-sm">
-					<li>Be: 100</li>
-					<li>Me: 200</li>
-				</ul>
+				<table class="w-full text-slate-100">
+			<thead>
+				<tr class="border-b border-gray-700">
+					<th class="py-4 px-6 text-left">Rank</th>
+					<th class="py-4 px-6 text-left">User</th>
+					<th class="py-4 px-6 text-right">CO2 Saved</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#if users.length > 0}
+					{#each users.slice(0, 3) as user (user.rank)}
+						<tr class="hover:bg-gray-700 transition-all">
+							<td class="py-4 px-6">{user.rank}</td>
+							<td class="py-4 px-6 flex items-center space-x-4">
+								<img
+									src={user.avatar}
+									alt="{user.name}'s avatar"
+									class="h-10 w-10 rounded-full object-cover"
+								/>
+								<span>{user.name}</span>
+							</td>
+							<td class="py-4 px-6 text-right">{user.co2Saved}</td>
+						</tr>
+					{/each}
+				{:else}
+					<tr>
+						<td colspan="3" class="py-4 px-6 text-center">No data available.</td>
+					</tr>
+				{/if}
+			</tbody>
+		</table>
 			</section>
 			<!-- Recipes -->
 			<ul class="list-disc p-6 col-span-2 w-full border-t border-grey-100">
