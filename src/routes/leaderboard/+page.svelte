@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 
 	type User = {
 		name: string;
@@ -10,18 +9,13 @@
 
 	let users: User[] = [];
 
-	onMount(async () => {
-		try {
-			const response = await fetch("http://localhost:3000/user/leaderboard");
-			if (response.ok) {
-				users = await response.json();
-			} else {
-				console.error('Failed to fetch leaderboard data.');
-			}
-		} catch (error) {
-			console.error('Error fetching leaderboard data:', error);
-		}
-	});
+	export let data;
+	if (data.redirect) {
+        location.href = data.redirect; // Perform the redirect to the backend route
+    } else {
+        users = data.users;
+    }
+
 </script>
 
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

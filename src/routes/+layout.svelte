@@ -12,38 +12,38 @@
                 </section>
                 <section class="flex items-center space-x-2 sm:space-x-2 md:space-x-4 lg:space-x-6">
                     <a href="/about">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                        <button class="nav-link">
                             About
                         </button>
                     </a>
                     <a href="/co2global"> 
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                        <button class="nav-link">
                             CO2
                         </button> 
                     </a>
                     <a href="/leaderboard">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                        <button class="nav-link">
                             Leaderboard
                         </button>   
                     </a>
                     <a href="/recipesList">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                        <button class="nav-link">
                             Recipes
                         </button>
                     </a>
                     <a href="/teams">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                        <button class="nav-link">
                             Teams
                         </button>
                     </a>
 
                     <a href="/diet">
-                        <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                        <button class="nav-link">
                             Diet
                         </button>
                     </a>
                     <a href="/milestones">
-                      <button class="hover:text-gray-400 border hover:border-gray-400 border-slate-100 rounded-sm transition-all p-2 sm:border lg:border-2">
+                      <button class="nav-link">
                          Milestones 
                       </button>  
                     </a>
@@ -72,4 +72,16 @@
 
 
 <style>
+    .nav-link {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #ffffff;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+    .nav-link:hover {
+        border-bottom: 2px solid #fff;
+        padding-bottom: 2px;
+    }
+
 </style>
