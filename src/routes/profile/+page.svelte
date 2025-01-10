@@ -1,5 +1,6 @@
 <script lang="ts">
     import "../../app.css";
+    import ShareButton from '$lib/componenets/ShareButton.svelte';
 
     let profilePicture: string | null = null;
     let name: string = ''; 
@@ -80,6 +81,14 @@
                 <a href="/co2personal" class="text-slate-300 hover:text-white text-lg transition-colors">
                     Statistics
                 </a>
+                
+                <!-- Share buttons moved here -->
+                <div class="share-buttons flex flex-col space-y-2 mt-4 pt-4 border-t border-zinc-700">
+                    <h3 class="text-sm font-semibold text-slate-400 mb-2">Share CO2 prevented on</h3>
+                    <ShareButton platform="TWITTER" />
+                    <ShareButton platform="FACEBOOK" />
+                    <ShareButton platform="LINKEDIN" />
+                </div>
             </nav>
         </div>
 
@@ -143,5 +152,5 @@
                 <div class="mt-4 text-green-500 font-bold text-center">{message}</div>
             {/if}
         </div>
-    </div>
+    
 </section>
