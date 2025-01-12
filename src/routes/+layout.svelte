@@ -11,6 +11,11 @@
                     <a href="/"><img src="/newSincarneLogo.png" alt="SinCarne Logo" class="h-14 w-auto object-contain"/></a>
                 </section>
                 <section class="flex items-center space-x-2 sm:space-x-2 md:space-x-4 lg:space-x-6">
+                    <a href="/diary">
+                        <button class="nav-link">
+                            Nutritional Diary
+                        </button>
+                    </a>
                     <a href="/about">
                         <button class="nav-link">
                             About
@@ -25,17 +30,6 @@
                         <button class="nav-link">
                             Leaderboard
                         </button>   
-                    </a>
-                    <a href="/teams">
-                        <button class="nav-link">
-                            Teams
-                        </button>
-                    </a>
-
-                    <a href="/diet">
-                        <button class="nav-link">
-                            Diet
-                        </button>
                     </a>
                     <button>
                         <a href="/profile">
