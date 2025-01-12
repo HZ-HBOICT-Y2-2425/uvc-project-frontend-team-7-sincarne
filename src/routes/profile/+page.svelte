@@ -1,23 +1,34 @@
 <script lang="ts">
     import "../../app.css";
+    import ShareButton from '$lib/componenets/ShareButton.svelte';
 
     let profilePicture: string | null = null;
     let name: string = ''; 
     let message: string | null = null; 
     let bio = '';
 
+    export let data;
+	if (data.redirect) {
+        location.href = data.redirect; // Perform the redirect to the backend route
+    } else {
+        name = data.name;
+        profilePicture = data.picture;
+    }
+
     // On page load, check if there's a saved profile picture and name in localStorage
     import { onMount } from 'svelte';
 
     onMount(() => {
-        const savedProfilePicture = localStorage.getItem('profilePicture');
-        const savedName = localStorage.getItem('name');
+        if (name === '') {
+            const savedProfilePicture = localStorage.getItem('profilePicture');
+            const savedName = localStorage.getItem('name');
 
-        if (savedProfilePicture) {
-            profilePicture = savedProfilePicture;
-        }
-        if (savedName) {
-            name = savedName;
+            if (savedProfilePicture) {
+                profilePicture = savedProfilePicture;
+            }
+            if (savedName) {
+                name = savedName;
+            }
         }
     });
 
@@ -52,7 +63,7 @@
     // Log out function
     function logOut() {
         // Redirect to login page 
-        window.location.href = '/registration'; 
+        window.location.href = 'http://localhost:3011/user/logout'; 
     }
 </script>
 
@@ -68,14 +79,16 @@
             </button>
             <nav class="flex flex-col space-y-2">
                 <a href="/co2personal" class="text-slate-300 hover:text-white text-lg transition-colors">
-                    📊 Statistics
+                    Statistics
                 </a>
-                <a href="/achievements" class="text-slate-300 hover:text-white text-lg transition-colors">
-                    🏆 Achievements
-                </a>
-                <a href="/milestones" class="text-slate-300 hover:text-white text-lg transition-colors">
-                    🎯 Milestones
-                </a>
+                
+                <!-- Share buttons moved here -->
+                <div class="share-buttons flex flex-col space-y-2 mt-4 pt-4 border-t border-zinc-700">
+                    <h3 class="text-sm font-semibold text-slate-400 mb-2">Share CO2 prevented on</h3>
+                    <ShareButton platform="TWITTER" />
+                    <ShareButton platform="FACEBOOK" />
+                    <ShareButton platform="LINKEDIN" />
+                </div>
             </nav>
         </div>
 
@@ -89,9 +102,14 @@
                 <!-- Profile Picture Section -->
                 <div class="my-4">
                     {#if profilePicture}
-                        <img src="{profilePicture}" alt="Profile Picture" class="mx-auto mb-4 w-48 h-48 rounded-full object-cover border-2 border-gray-300" />
+                        <!-- svelte-ignore a11y_img_redundant_alt -->
+                        <img src="{profilePicture}" 
+                        alt="Profile Picture" 
+                        class="mx-auto mb-4 w-48 h-48 rounded-full object-cover border-2 border-gray-300" />
                     {:else}
-                        <img src="https://via.placeholder.com/200" alt="Placeholder" class="mx-auto mb-4 w-48 h-48 rounded-full object-cover border-2 border-gray-300" />
+                        <img src="https://via.placeholder.com/200" 
+                        alt="Placeholder" 
+                        class="mx-auto mb-4 w-48 h-48 rounded-full object-cover border-2 border-gray-300" />
                     {/if}
                     <input 
                         type="file" 
@@ -134,5 +152,5 @@
                 <div class="mt-4 text-green-500 font-bold text-center">{message}</div>
             {/if}
         </div>
-    </div>
+    
 </section>

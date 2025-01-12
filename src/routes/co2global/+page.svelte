@@ -1,10 +1,19 @@
 <script lang="ts">
-    let totalCO2Saved = 50000; 
+
+    let totalCO2Saved = 0;
+
+    export let data;
+	if (data.redirect) {
+        location.href = data.redirect; // Perform the redirect to the backend route
+    } else {
+        totalCO2Saved = data.totalCO2Saved;
+    }
 
     function formatCO2Saved(co2: number): string {
-        return co2.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+        return co2.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     }
 </script>
+    
 
 <section class="flex flex-col items-center justify-center h-screen text-slate-100">
     <h1 class="text-5xl font-bold mb-8">CO2 Savings by Everyone</h1>
