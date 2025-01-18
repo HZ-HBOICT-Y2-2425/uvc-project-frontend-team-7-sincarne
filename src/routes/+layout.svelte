@@ -1,6 +1,6 @@
 <script lang="ts">
     import '../app.css';
-    let { children } = $props();
+    //let { children } = $props();
 </script>
 
 <section class="bg-cover bg-center bg-fixed min-h-screen flex flex-col bg-blur-md" style="background-image: url('/MainBg3.jpg')">
