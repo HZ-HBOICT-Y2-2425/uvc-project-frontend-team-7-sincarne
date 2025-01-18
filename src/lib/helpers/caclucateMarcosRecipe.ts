@@ -27,7 +27,7 @@ export async function calculateMarcosForARecipe(ingredients: IIngredient[]): Pro
 				const parsed = macroSchema.safeParse(response.data);
 				
 				if (!parsed.success) {
-					console.log(parsed.error);
+					//console.log(parsed.error);
 					return;
 				}
 				parsed.data.forEach((macro) => {
