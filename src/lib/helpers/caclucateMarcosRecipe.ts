@@ -13,7 +13,7 @@ export async function calculateMarcosForARecipe(ingredients: IIngredient[]): Pro
 }> {
 	const transcript = new Map<string, number>([
 		['Energy', 0],
-		['Protein', 0],
+		['Protein', 10],
 		['Carbohydrate, by difference', 0],
 		['Total lipid (fat)', 0]
 	]);
