@@ -192,67 +192,96 @@
 		await getDiaryEntry();
 	}
 
-	async function getRecipes() {
+	export async function getRecipes() {
+		// Fetch all recipes from the server
 		await axios.get('/user/getRecipes').then(async (response) => {
+			// Parse the response to ensure it matches the expected schema
 			const parsed = z.array(singleRecipeSchema).safeParse(response.data);
 			if (!parsed.success) {
 				console.log(parsed.error);
-				return;
+				return; // Exit early if the schema validation fails
 			}
+
+			// Set loading indicator to the number of recipes being processed
 			loadingAmountRecipes = parsed.data.length;
-			// Explicitly type the map array
+
+			// Prepare an array of promises to fetch detailed data for each recipe
 			const map = parsed.data.map((recipe) => {
 				return axios.get<number>(`/user/getRecipe/${recipe.id}`);
 			});
+
+			// Temporary storage for processed recipes
 			let tempRecipes: (IRecipe & { is_meat?: string; CO2prevented: number })[] = [];
+
+			// Wait for all recipe details to be fetched
 			await Promise.all(map).then(async (data) => {
 				for (const response of data) {
+					// Parse the recipe details to ensure schema validation
 					const parsedRecipe = recipeSchema.safeParse(response.data);
 					if (!parsedRecipe.success) {
 						console.log(parsedRecipe.error);
-						return;
+						return; // Skip this recipe if validation fails
 					}
+
+					// Calculate total CO2 emissions for the recipe
 					let sum = 0;
 					parsedRecipe.data.ingredients.forEach((ing) => {
-						sum += (ing.emission * ing.amount) / 100;
+						sum += (ing.emission * ing.amount) / 100; // Calculate emissions based on ingredient data
 					});
+
+					// Add the recipe to the temporary array with initial values
 					const length = tempRecipes.push({
 						...parsedRecipe.data,
-						is_meat: 'False',
+						is_meat: 'False', // Default to 'False'
 						CO2prevented: sum
 					});
+
+					// Check if any ingredients in the recipe are classified as meat
 					const isMeat = parsedRecipe.data.ingredients.map((rep) => {
 						return axios.get('/nutri/isMeat/' + encodeURIComponent(rep.name));
 					});
+
+					// Wait for all meat-check responses and process them
 					await Promise.all(isMeat).then((isMeatdata) => {
 						for (const response of isMeatdata) {
+							// Parse the response to validate meat-check data
 							const parsed = isMeatSchema.safeParse(response.data);
 							if (!parsed.success) {
 								console.log(parsed.error);
-								return;
+								return; // Skip this ingredient if validation fails
 							}
+
+							// If any ingredient is meat, update the recipe's 'is_meat' field
 							if (parsed.data.is_meat === 'True') {
 								tempRecipes[length - 1].is_meat = parsed.data.is_meat;
-								return;
+								return; // Exit the loop early for this recipe
 							}
 						}
 					});
 				}
+
+				// Log the temporary recipes after processing meat checks
 				console.log('tempRecipes:', tempRecipes);
+
+				// Prepare to calculate macros for each recipe
 				const calcMacro = tempRecipes.map((rep) => {
 					return calculateMarcosForARecipe(rep.ingredients);
 				});
+
+				// Wait for all macro calculations and update each recipe with the results
 				await Promise.all(calcMacro).then((macroData) => {
 					let index = 0;
 					for (const response of macroData) {
-						console.log(response);
+						console.log(response); // Log the macro data for debugging
 						tempRecipes[index].total_calories = response.total_calories;
 						tempRecipes[index].total_protein = response.total_protein;
 						tempRecipes[index].total_carbs = response.total_carbs;
 						tempRecipes[index].total_fats = response.total_fats;
-						index++;
+						index++; // Move to the next recipe
 					}
 				});
+
+				// Finalize recipes and reset the loading indicator
 				recipes = tempRecipes;
 				loadingAmountRecipes = 0;
 			});
@@ -308,11 +337,15 @@
 						: '0'};"
 				>
 					{#if selectedFood.ingredient && (selectedFood.ingredient?.amount ?? 0) > 0}
-						<p class="text-lg font-semibold {selectedFood.emission > 20 ? "text-red-500" : "text-green-500"}">
+						<p
+							class="text-lg font-semibold {selectedFood.emission > 20
+								? 'text-red-500'
+								: 'text-green-500'}"
+						>
 							<strong class="text-white">CO2 Emission:</strong>
 							{(selectedFood.emission * selectedFood.ingredient.amount) / 100} KG
 						</p>
-						<hr>
+						<hr />
 						{#each selectedFood.macro as macro}
 							<p class="flex justify-between text-lg">
 								<strong>{macro.name}: </strong>
